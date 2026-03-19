@@ -7,7 +7,7 @@ namespace = "adamant"
 name = "SeleneFix"
 versionNumber = "1.0.0"
 description = "Aspect of Selene properly registers its hex so you get offered PoS directly. Skyfall is full moonglow."
-websiteUrl = "https://github.com/maybe-adamant/h2-pack-SeleneFix"
+websiteUrl = "https://github.com/maybe-adamant/h2-modpack-SeleneFix"
 containsNsfwContent = false
 
 [package.dependencies]

@@ -8,7 +8,7 @@ game = rom.game
 modutil = mods['SGG_Modding-ModUtil']
 chalk = mods['SGG_Modding-Chalk']
 reload = mods['SGG_Modding-ReLoad']
-local lib = mods['adamant-Modpack_Lib'].public
+local lib = mods['adamant-Modpack_Lib']
 
 config = chalk.auto('config.lua')
 public.config = config
@@ -71,7 +71,7 @@ end
 
 local function registerHooks()
     modutil.mod.Path.Wrap("StartNewRun", function(baseFunc, prevRun, args)
-        if not config.Enabled then return baseFunc(prevRun, args) end
+        if not lib.isEnabled(config) then return baseFunc(prevRun, args) end
         local currentRun = baseFunc(prevRun, args)
         if HeroHasTrait("SuitHexAspect") then
             RecordUse(nil, "SpellDrop")
@@ -80,7 +80,7 @@ local function registerHooks()
     end)
 
     modutil.mod.Path.Wrap("SpawnRoomReward", function(base, eventSource, args)
-        if not config.Enabled then return base(eventSource, args) end
+        if not lib.isEnabled(config) then return base(eventSource, args) end
         if HeroHasTrait("SuitHexAspect") and HeroHasTrait("SpellTalentKeepsake") and game.CurrentRun.CurrentRoom.BiomeStartRoom then
             args = args or {}
             if args.WaitUntilPickup then
@@ -105,11 +105,12 @@ modutil.once_loaded.game(function()
     loader.load(function()
         import_as_fallback(rom.game)
         registerHooks()
-        if config.Enabled then apply() end
-        if public.definition.dataMutation and not mods['adamant-Core'] then
+        if lib.isEnabled(config) then apply() end
+        if public.definition.dataMutation and not mods['adamant-Modpack_Core'] then
             SetupRunData()
         end
     end)
 end)
 
-lib.standaloneUI(public.definition, config, apply, restore)
+local uiCallback = lib.standaloneUI(public.definition, config, apply, restore)
+rom.gui.add_to_menu_bar(uiCallback)
