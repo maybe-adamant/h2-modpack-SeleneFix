@@ -48,7 +48,7 @@ end
 public.definition = {
     id       = "SeleneFix",
     name     = "Aspect of Selene Fix",
-    category = "BugFixes",
+    category = "Bug Fixes",
     group    = "Weapons & Attacks",
     tooltip  = "Aspect of Selene properly registers its hex so you get offered PoS directly. Skyfall is full moonglow.",
     default  = true,
