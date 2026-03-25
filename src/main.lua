@@ -53,7 +53,7 @@ public.definition = {
     tooltip  = "Aspect of Selene properly registers its hex so you get offered PoS directly. Skyfall is full moonglow.",
     default  = true,
     dataMutation = true,
-    modpackModule = true,
+    modpack = "h2-modpack",
 }
 
 -- =============================================================================
